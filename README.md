@@ -37,15 +37,16 @@
 ##   Installation / Установка
 
 1. Clone the repository / Клонируйте репозиторий
-**  Bash
+
 git clone <your-repository-url>
+
 cd FILM_movie_project
 
 # 2. Setup on Windows (PowerShell) / Настройка в Windows (PowerShell)
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
-**  PowerShell 
 python -m venv venv .\venv\Scripts\Activate.ps1
+
 .\venv\Scripts\pip install -r requirements.txt
 
 ##  Run the Project / Запуск проекта
@@ -59,18 +60,18 @@ python -m venv venv .\venv\Scripts\Activate.ps1
 # 3. Setup on Mac / Linux / Настройка в Mac / Linux
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
-* Bash
 python3 -m venv venv
+
 source venv/bin/activate
+
 pip install -r requirements.txt
 
 ##  Run the Project / Запуск проекта
 
-* Bash
 python main.py
 ---
 #   Testing / Тестирование
-* Bash
+
 pytest -v
 
 ---
