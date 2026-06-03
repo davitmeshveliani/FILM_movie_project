@@ -10,15 +10,19 @@
 ##  Features / Возможности
 
 -  Live MySQL Search** — Real-time queries from the Sakila database.  
-  *(Поиск в реальном времени в базе данных Sakila)*
+- 
+   (Поиск в реальном времени в базе данных Sakila)
 
 -  MongoDB Logging** — Logs all searches and system errors to MongoDB Atlas.  
+- 
    (Логирование запросов и ошибок в MongoDB Atlas)*
 
 -- Smart Analytics — View trending searches using MongoDB aggregation.  
+
    (Аналитика популярных поисковых запросов)*
 
 - **Pagination** — Clean CLI data display (10 results per page).  
+- 
   *(Удобная пагинация данных)*
 
 ---
@@ -28,13 +32,18 @@
 | Module                | Description (EN) | Описание (RU) |
 
 | 'main.py'             |	Core application logic              |	          Основная логика приложения
+
 | 'app_orchestrator.py' |	Handles high-level logic and flow	|  Управление бизнес-логикой и потоками
+
 | 'db_manager.py'	    |    Database operations (MySQL)        |	Операции с базой данных (MySQL)
+
  'ui_handlers.py'       |   CLI user interface logic	        |   Логика пользовательского интерфейса
 
-| `log_stats.py`         | Analytics processing                 | Обработка аналитики |
-| `formatter.py`         | CLI data styling                     | Стилизация вывода в CLI |
-| `config.py`            | Environment loader                   | Загрузка конфигурации |
+| `log_stats.py`         | Analytics processing                 | Обработка аналитики 
+
+| `formatter.py`         | CLI data styling                     | Стилизация вывода в CLI 
+
+| `config.py`            | Environment loader                   | Загрузка конфигурации 
 
 ---
 ##   Installation / Установка
@@ -46,6 +55,7 @@ git clone <your-repository-url>
 cd FILM_movie_project
 
 # 2. Setup on Windows (PowerShell) / Настройка в Windows (PowerShell)
+
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
 #  Windows (PowerShell):
@@ -63,6 +73,7 @@ python -m venv venv .\venv\Scripts\Activate.ps1
 
 
 # 3. Setup on Mac / Linux / Настройка в Mac / Linux
+
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
 ##    Mac / Linux (Bash):
