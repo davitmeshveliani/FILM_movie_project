@@ -96,5 +96,3 @@ pytest -v
 - PyMongo
 - mysql-connector-python
 
-# - python-dotenv
-# - pytest (Unit Testing)
