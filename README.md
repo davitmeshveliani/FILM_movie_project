@@ -1,8 +1,11 @@
 #  Movie Search & Analytics System
 
 
-**[EN]** A professional Python CLI application that integrates relational (MySQL) and NoSQL (MongoDB) databases for movie searching, logging, and analytics.
-**[RU]** Профессиональное Python CLI-приложение, объединяющее реляционные (MySQL) и NoSQL (MongoDB) базы данных для поиска фильмов, ведения логов и аналитики.
+**[EN]** A professional Python CLI application that integrates relational (MySQL)
+            and NoSQL (MongoDB) databases for movie searching, logging, and analytics.
+
+**[RU]** Профессиональное Python CLI-приложение, объединяющее реляционные (MySQL) 
+        и NoSQL (MongoDB) базы данных для поиска фильмов, ведения логов и аналитики.
 
 ##  Features / Возможности
 
