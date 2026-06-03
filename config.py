@@ -2,31 +2,24 @@ import os
 from typing import Dict, Any, Final
 from dotenv import load_dotenv
 
+"""
+SUMMARY:
+This module acts as the centralized configuration gateway. It loads sensitive 
+environment variables from a .env file and maps them into typed constants 
+(MYSQL_CONFIG and MongoDB strings). This approach keeps configuration logic 
+separate from application logic, ensures type safety with 'Final', and provides 
+default fallback values to maintain application stability.
+"""
 load_dotenv()
 
-def get_env_variable(key: str) -> str:
-    """
-        Retrieves an environment variable by key.
-        Args:
-            key: The name of the environment variable.
-        Returns:
-            The value of the environment variable as a string.
-        Raises:
-            ValueError: If the environment variable is not set
-        """
-    value = os.getenv(key)
-    if not value:
-        raise ValueError(f"Environment variable '{key}' is not set!")
-    return value
-
 MYSQL_CONFIG: Final[Dict[str, Any]] = {
-    'host': get_env_variable('MYSQL_HOST'),
-    'user': get_env_variable('MYSQL_USER'),
-    'password': get_env_variable('MYSQL_PASSWORD'),
-    'database': get_env_variable('MYSQL_DATABASE'),
-    'port': int(os.getenv('MYSQL_PORT', 3306))
-}
+                            'host': os.getenv('MYSQL_HOST', 'localhost'),
+                            'user': os.getenv('MYSQL_USER', 'root'),
+                            'password': os.getenv('MYSQL_PASSWORD', ''),
+                            'database': os.getenv('MYSQL_DATABASE', 'movies_db'),
+                            'port': int(os.getenv('MYSQL_PORT', 3306))
+                                     }
 
-MONGO_URI: Final[str] = get_env_variable('MONGO_URI')
-MONGO_DB_NAME: Final[str] = get_env_variable('MONGO_DB_NAME')
-MONGO_COLLECTION_NAME: Final[str] = get_env_variable('MONGO_COLLECTION_NAME')
+MONGO_URI: Final[str] = os.getenv('MONGO_URI', '')
+MONGO_DB_NAME: Final[str] = os.getenv('MONGO_DB_NAME', 'movies_db')
+MONGO_COLLECTION_NAME: Final[str] = os.getenv('MONGO_COLLECTION_NAME', 'movies')
