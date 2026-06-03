@@ -45,13 +45,16 @@ cd FILM_movie_project
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
 **  PowerShell 
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-
-# Install dependencies / Установите зависимости:#
-
-** PowerShell 
+python -m venv venv .\venv\Scripts\Activate.ps1
 .\venv\Scripts\pip install -r requirements.txt
+
+##  Run the Project / Запуск проекта
+
+.\venv\Scripts\python main.py
+
+
+
+
 
 # 3. Setup on Mac / Linux / Настройка в Mac / Linux
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
@@ -59,34 +62,16 @@ python -m venv venv
 * Bash
 python3 -m venv venv
 source venv/bin/activate
-
-# Install dependencies / Установите зависимости:
-
-* Bash
 pip install -r requirements.txt
-
-# 4. Testing / Тестирование
-* Bash
-pytest -v
-
-#    Run the Project / Запуск проекта
-# Windows:
-
-* PowerShell 
-.\venv\Scripts\python main.py
-
-# Mac / Linux:
-
-* Bash
-python main.py
-
----
 
 ##  Run the Project / Запуск проекта
 
-#```bash
-# -> python main.py
-```
+* Bash
+python main.py
+---
+#   Testing / Тестирование
+* Bash
+pytest -v
 
 ---
 -- Example Functionality // Пример возможностей

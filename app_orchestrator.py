@@ -38,7 +38,7 @@ class AppOrchestrator:
         while True:
             choice = ui.display_menu()
             if choice == '4':
-                print("\nThank you from Davit. Goodbye!")
+                print("\033[93mThank you from Davit. Goodbye!\033[0m")
                 break
             if action := self.menu.get(choice):
                 action()
