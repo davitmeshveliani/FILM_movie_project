@@ -45,6 +45,8 @@ cd FILM_movie_project
 # 2. Setup on Windows (PowerShell) / Настройка в Windows (PowerShell)
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
+#  Windows (PowerShell):
+
 python -m venv venv .\venv\Scripts\Activate.ps1
 
 .\venv\Scripts\pip install -r requirements.txt
@@ -59,6 +61,9 @@ python -m venv venv .\venv\Scripts\Activate.ps1
 
 # 3. Setup on Mac / Linux / Настройка в Mac / Linux
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
+
+##    Mac / Linux (Bash):
+
 
 python3 -m venv venv
 
