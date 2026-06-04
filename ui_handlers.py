@@ -23,7 +23,7 @@ def display_menu() -> str:
                 "4. Exit"
                  )
     console.print(Panel(menu_text, title="[bold blue]SAKILA MOVIE SEARCH SYSTEM[/]", expand=False))
-    return input("\nSelection: ").strip()
+    return console.input("\n[bold cyan]Selection:[/bold cyan] ").strip()
 
 
 def get_valid_genre(genres: List[str]) -> str:
@@ -37,15 +37,15 @@ def get_valid_genre(genres: List[str]) -> str:
     genres_lower = [g.lower() for g in genres]
 
     while True:
-        choice = input("\nGenre Name or Number: ").strip().lower()
-
+        choice = console.input("\n[bold cyan]Genre Name or Number:[/bold cyan] ").strip().lower()
         if choice.isdigit():
             idx = int(choice) - 1
             if 0 <= idx < len(genres):
                 return genres[idx]
         if choice in genres_lower:
             return genres[genres_lower.index(choice)]
-        print(f"Invalid input. Please choose 1-{len(genres)} or type the full name.")
+        console.print(f"[bold red]Invalid input. Please choose 1-{len(genres)} "
+                        f"or type the full name.[/bold red]")
 
 
 def get_valid_year_range(min_y: int, max_y: int) -> Tuple[int, int]:
@@ -59,8 +59,8 @@ def get_valid_year_range(min_y: int, max_y: int) -> Tuple[int, int]:
     """
     while True:
         try:
-            start = input(f"Start Year (min {min_y}): ").strip()
-            end = input(f"End Year (max {max_y}): ").strip()
+            start = console.input(f"[bold cyan]Start Year (min {min_y}):[/bold cyan] ").strip()
+            end = console.input(f"[bold cyan]End Year (max {max_y}):[/bold cyan] ").strip()
 
             y_from = int(start) if start else min_y
             y_to = int(end) if end else max_y
@@ -73,19 +73,16 @@ def get_valid_year_range(min_y: int, max_y: int) -> Tuple[int, int]:
             return y_from, y_to
 
         except ValueError:
-            print("Error: Invalid input! Please enter valid numbers.")
+            console.print("[bold red]Error: Invalid input! Please enter valid numbers.[/bold red]")
         except InvalidYearError as e:
-            print(f"Business Logic Error: {e}")
+            console.print(f"[bold red]Business Logic Error: {e}[/bold red]")
 
 
-def handle_genre_search(db: MovieDatabase, logger: MongoLogger, min_y: int, max_y: int) -> None:
+def handle_genre_search(db: MovieDatabase,logger: MongoLogger,
+                                    min_y: int,max_y: int) -> None:
+
     """
     Orchestrates the user flow for searching movies by genre and year.
-    Args:
-        db: Instance of MovieDatabase for queries.
-        logger: Instance of MongoLogger for saving activity.
-        min_y: The lower bound for the search years.
-        max_y: The upper bound for the search years.
     """
     genres = db.get_genres()
     display_genres(genres)
@@ -95,17 +92,27 @@ def handle_genre_search(db: MovieDatabase, logger: MongoLogger, min_y: int, max_
 
     offset = 0
     while True:
-        results = db.search_by_genre_year(genre, y_from, y_to, offset)
+        results = db.search_by_genre_year(
+                genre,y_from,y_to,offset)
         if not results:
-            print("\nNo results found for your criteria.")
+            console.print("\n[bold yellow]No results found for your criteria.[/bold yellow]")
             break
-
         fmt.display_movies(results)
         if offset == 0:
-            logger.save_search_log("genre_year", {"genre": genre, "from": y_from, "to": y_to}, len(results))
-        if len(results) < 10 or input("\nLoad next 10? (y/n): ").lower() != 'y':
+            logger.save_search_log("genre_year",{
+                                                "genre": genre,
+                                                "from": y_from,
+                                                "to": y_to
+                                                 },
+                                               len(results)
+                                                )
+        next_results = db.search_by_genre_year(genre,y_from,y_to,offset + 10)
+        if not next_results:
+            console.print("\n[bold yellow]--- No more search results found. ---[/bold yellow]")
             break
-        offset += 10
+        if console.input("\n[bold yellow]Load next 10 results? (y/n): [/bold yellow]").lower() != "y":
+            break
+
 
 
 def handle_keyword_search(db: MovieDatabase, logger_instance: MongoLogger) -> None:
@@ -115,30 +122,35 @@ def handle_keyword_search(db: MovieDatabase, logger_instance: MongoLogger) -> No
         db: Instance of MovieDatabase for queries.
         logger_instance: Instance of MongoLogger for logging.
     """
-    keyword: str = input("\nEnter search keyword: ").strip()
+    keyword: str = console.input("\n[bold cyan]Enter search keyword:[/bold cyan] ").strip()
     if not keyword: return
-
     offset: int = 0
     first_run: bool = True
     while True:
         results = db.search_by_title(keyword, offset)
         if first_run and not results:
-            print(f"\nNo movies found matching !: '{keyword}'")
+            console.print(f"\n[bold yellow]No movies found matching: '{keyword}'[/bold yellow]")
             break
         if not first_run and not results:
-            print("\nEnd of results reached.!")
+            console.print("\n[bold yellow]End of results reached.[/bold yellow]")
             break
-
         fmt.display_movies(results)
-        if offset == 0 and results:
-            logger_instance.save_search_log("keyword", {"keyword": keyword}, len(results))
 
-        if len(results) < 10:
-            print("\n End of results.")
+        if offset == 0:
+            logger_instance.save_search_log(
+                                "keyword",
+                                    {"keyword": keyword},
+                                            len(results)
+                                              )
+        next_results = db.search_by_title(keyword, offset + 10)
+        if not next_results:
+            console.print("\n[bold yellow]  No more movies found.[/bold yellow]")
             break
-        if input("\nLoad next 10 results? (y/n): ").lower() != 'y':
+        if console.input("\n[bold yellow]Load next 10 results? (y/n): [/bold yellow]").lower() != "y":
             break
         offset += 10
+        first_run = False
+
 
 
 def display_stats(stats: List[Any]) -> None:
@@ -148,11 +160,11 @@ def display_stats(stats: List[Any]) -> None:
         stats: A list of search statistics to display.
     """
     table = Table(
-        title="[bold yellow]TOP 5 MOST POPULAR SEARCHES[/]",
-        show_header=True,
-        header_style="bold magenta",
-        border_style="blue"
-    )
+                title="[bold yellow]TOP 5 MOST POPULAR SEARCHES[/]",
+                show_header=True,
+                header_style="bold magenta",
+                border_style="blue"
+                         )
     table.add_column("#", style="dim", width=4)
     table.add_column("Query", style="bold cyan")
     table.add_column("Count", justify="right", style="bold green")
@@ -162,7 +174,6 @@ def display_stats(stats: List[Any]) -> None:
     else:
         for idx, stat in enumerate(stats, 1):
             table.add_row(f"[white]{idx}[/]", f"[cyan]{stat.keyword}[/]", f"[green]{stat.count}[/]")
-
     console.print(Panel(table, border_style="blue", expand=False))
 
 
@@ -180,7 +191,6 @@ def display_genres(genres: List[str]) -> None:
     for i in range(0, len(genres), 3):
         row = genres[i:i + 3]
         formatted_row = [f"[yellow]{idx + 1}.[/] [white]{genre.upper()}[/]" for idx, genre in enumerate(row, i)]
-
         while len(formatted_row) < 3:
             formatted_row.append("")
         table.add_row(*formatted_row)

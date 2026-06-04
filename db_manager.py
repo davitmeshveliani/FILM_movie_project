@@ -10,12 +10,12 @@ class MovieDatabase:
     """
 
     TITLE_SEARCH_QUERY: str = (
-        "SELECT title, release_year, rating, length "
-        "FROM film "
-        "WHERE title LIKE %s "
-        "ORDER BY CAST(release_year AS UNSIGNED) ASC, title DESC "
-        "LIMIT 10 OFFSET %s"
-    )
+                            "SELECT title, release_year, rating, length "
+                            "FROM film "
+                            "WHERE LOWER(title) LIKE LOWER(CONCAT(%s, '%')) "
+                            "ORDER BY release_year ASC, title DESC "
+                            "LIMIT 10 OFFSET %s"
+                                               )
 
     GENRE_YEAR_SEARCH_QUERY: str = """
         SELECT f.title, f.release_year, f.rating, f.length 

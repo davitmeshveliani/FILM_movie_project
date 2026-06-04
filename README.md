@@ -63,9 +63,9 @@ cd FILM_movie_project
 
 ##  Required fields       /        Необходимые поля:
 
-       MySQL: MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+       MySQL: MYSQL_HOST,   MYSQL_USER,    MYSQL_PASSWORD,    MYSQL_DATABASE
 
-       MongoDB: MONGO_URI, MONGO_DB_NAME, MONGO_COLLECTION_NAME
+       MongoDB: MONGO_URI,   MONGO_DB_NAME,   MONGO_COLLECTION_NAME
 
 
 
