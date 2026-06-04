@@ -112,6 +112,8 @@ def handle_genre_search(db: MovieDatabase,logger: MongoLogger,
             break
         if console.input("\n[bold yellow]Load next 10 results? (y/n): [/bold yellow]").lower() != "y":
             break
+        offset += 10
+
 
 
 
