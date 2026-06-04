@@ -1,6 +1,4 @@
 from mysql.connector import connect, Error
-from mysql.connector.cursor import MySQLCursor
-from mysql.connector.connection import MySQLConnection
 from config import MYSQL_CONFIG
 from db_manager import MovieDatabase
 from log_writer import MongoLogger
@@ -10,15 +8,19 @@ from app_orchestrator import AppOrchestrator
 
 def main() -> None:
     """
-    The main entry point of the application.
+        Main entry point of the application.
 
-    Initializes database connections (MySQL and MongoDB), sets up dependencies,
-    and starts the application orchestrator. Ensures proper resource cleanup
-    """
+        Establishes a connection to the MySQL database, initializes the necessary
+        logging and analytics modules, and orchestrates the application execution.
+        Ensures that database resources are properly closed after execution.
+        """
+
     conn = None
+    cur = None
+
     try:
         conn = connect(**MYSQL_CONFIG)
-        cur: MySQLCursor = conn.cursor()
+        cur = conn.cursor()
 
         with MongoLogger() as log:
             db = MovieDatabase(cur)
@@ -30,8 +32,9 @@ def main() -> None:
         print(f"Connection failed: {e}")
 
     finally:
-        if conn and conn.is_connected():
+        if cur is not None:
             cur.close()
+        if conn and conn.is_connected():
             conn.close()
 
 

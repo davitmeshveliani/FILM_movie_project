@@ -29,21 +29,21 @@
 
 ##  Project Architecture / Архитектура проекта
 
-| Module                | Description (EN) | Описание (RU) |
+ Module                    Description (EN)                                   Описание (RU) 
 
-| 'main.py'             |	Core application logic              |	          Основная логика приложения
+ 'main.py'             	   Core application logic              	         Основная логика приложения
 
-| 'app_orchestrator.py' |	Handles high-level logic and flow	|  Управление бизнес-логикой и потоками
+ 'app_orchestrator.py' 	   Handles high-level logic and flow	         Управление бизнес-логикой и потоками
 
-| 'db_manager.py'	    |    Database operations (MySQL)        |	Операции с базой данных (MySQL)
+ 'db_manager.py'	       Database operations (MySQL)             	     Операции с базой данных (MySQL)
 
- 'ui_handlers.py'       |   CLI user interface logic	        |   Логика пользовательского интерфейса
+ 'ui_handlers.py'          CLI user interface logic	                     Логика пользовательского интерфейса
 
-| `log_stats.py`         | Analytics processing                 | Обработка аналитики 
+ `log_stats.py`            Analytics processing                          Обработка аналитики 
 
-| `formatter.py`         | CLI data styling                     | Стилизация вывода в CLI 
+ `formatter.py`            CLI data styling                              Стилизация вывода в CLI 
 
-| `config.py`            | Environment loader                   | Загрузка конфигурации 
+ `config.py`               Environment loader                            Загрузка конфигурации 
 
 ---
 ##   Installation / Установка
@@ -54,36 +54,54 @@ git clone <your-repository-url>
 
 cd FILM_movie_project
 
-# 2. Setup on Windows (PowerShell) / Настройка в Windows (PowerShell)
+
+##    Environment Setup / Настройка окружения
+
+   [EN] The app creates a .env file automatically on the first run. Open it and add your database credentials.
+
+    [RU] Приложение автоматически создает .env при первом запуске. Откройте его и добавьте свои данные для подключения.
+
+##  Required fields       /        Необходимые поля:
+
+       MySQL: MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+
+       MongoDB: MONGO_URI, MONGO_DB_NAME, MONGO_COLLECTION_NAME
+
+
+
+
+
 
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
 #  Windows (PowerShell):
 
-python -m venv venv .\venv\Scripts\Activate.ps1
+ python -m venv venv
 
-.\venv\Scripts\pip install -r requirements.txt
+ .\venv\Scripts\Activate.ps1
+
+ pip install -r requirements.txt
 
 ##  Run the Project / Запуск проекта
 
-.\venv\Scripts\python main.py
+ python main.py
 
 
 
 
 
-# 3. Setup on Mac / Linux / Настройка в Mac / Linux
+
 
 # Create and activate virtual environment / Создайте и активируйте виртуальное окружение:
 
-##    Mac / Linux (Bash):
+##    Mac    / Linux (Bash):
 
 
-python3 -m venv venv
+ python3 -m venv venv
 
-source venv/bin/activate
+ source venv/bin/activate
 
-pip install -r requirements.txt
+ pip install -r requirements.txt
 
 ##  Run the Project / Запуск проекта
 
@@ -91,7 +109,7 @@ python main.py
 ---
 #   Testing / Тестирование
 
-pytest -v
+ pytest -v
 
 ---
 -- Example Functionality // Пример возможностей
@@ -100,7 +118,7 @@ pytest -v
 - Store search history in MongoDB
 -  Display trending searches
 - Paginated CLI output
-- Error logging and monitoring
+- Automatic error logging and monitoring.
 
 --  Technologies Used / Используемые технологии
 
