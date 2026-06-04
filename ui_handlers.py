@@ -172,7 +172,7 @@ def display_stats(stats: List[Any]) -> None:
     if not stats:
         console.print("[bold red]No search history recorded yet.[/]")
     else:
-        for idx, stat in enumerate(stats, 1):
+        for idx, stat in enumerate(stats[:5], 1):
             table.add_row(f"[white]{idx}[/]", f"[cyan]{stat.keyword}[/]", f"[green]{stat.count}[/]")
     console.print(Panel(table, border_style="blue", expand=False))
 
